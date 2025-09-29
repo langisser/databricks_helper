@@ -19,23 +19,18 @@ pip install -r requirements.txt
 ```
 
 ### 2. Configure Databricks Connection
-Update `config.json` with your Databricks credentials:
+Set up your personal Databricks credentials:
 
-```json
-{
-  "databricks": {
-    "host": "https://your-workspace.databricks.com",
-    "token": "your-access-token",
-    "cluster_id": "your-cluster-id",
-    "warehouse_id": "your-warehouse-id"
-  },
-  "settings": {
-    "log_level": "INFO",
-    "timeout_seconds": 300,
-    "max_output_size": "5MB"
-  }
-}
+```bash
+# Run the setup script
+cd helper_function
+python setup_config.py
+
+# This creates config.json from the template
+# Edit config.json with your credentials
 ```
+
+**Important**: Your `config.json` is ignored by git for security. Each user/project needs their own configuration.
 
 ### 3. Get Your Credentials
 
@@ -120,7 +115,9 @@ python databricks_html_log_export.py <run_id>
 
 ```
 helper_function/
-├── config.json              # Configuration file
+├── config.template.json     # Configuration template (tracked)
+├── config.json              # Your personal config (git ignored)
+├── setup_config.py          # Configuration setup helper
 ├── databricks_helper.py      # Main helper module
 ├── databricks_html_log_export.py # HTML log export functionality
 ├── demo/
@@ -164,3 +161,23 @@ This helper is designed to work perfectly with Claude:
 4. **No downloads**: No need to handle HTML files
 
 Perfect for real-time data analysis and debugging workflows!
+
+## Using as a Submodule in Other Projects
+
+To use this helper in another project:
+
+```bash
+# Add as submodule
+git submodule add https://github.com/langisser/databricks_helper.git lib/databricks_helper
+
+# Set up configuration in your project
+cd lib/databricks_helper/helper_function
+python setup_config.py
+# Edit config.json with your credentials
+
+# Use in your project
+from lib.databricks_helper.helper_function.databricks_html_log_export import export_html_log
+html_file = export_html_log("run_id_123")
+```
+
+**Configuration Security**: Each project maintains its own `config.json` with personal credentials. These are never committed to git.
