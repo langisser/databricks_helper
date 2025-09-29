@@ -58,8 +58,24 @@ class HTMLLogExporter:
         try:
             with open(config_path, 'r') as f:
                 return json.load(f)
-        except (FileNotFoundError, json.JSONDecodeError) as e:
-            raise Exception(f"Error loading configuration from {config_path}: {e}")
+        except FileNotFoundError:
+            # Try to find template file and give helpful error
+            template_path = config_path.parent / "config.template.json"
+            if template_path.exists():
+                raise Exception(f"""
+Configuration file not found: {config_path}
+
+To set up your configuration:
+1. Copy the template: cp {template_path} {config_path}
+2. Edit {config_path} with your Databricks credentials
+3. Template available at: {template_path}
+
+Your config.json file is ignored by git for security.
+                """.strip())
+            else:
+                raise Exception(f"Configuration file not found: {config_path}")
+        except json.JSONDecodeError as e:
+            raise Exception(f"Invalid JSON in configuration file {config_path}: {e}")
 
     def export_run_html(self, run_id, output_dir="../tmp"):
         """
