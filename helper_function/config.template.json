@@ -1,0 +1,13 @@
+{
+  "databricks": {
+    "host": "https://your-workspace.databricks.net",
+    "token": "YOUR_DATABRICKS_ACCESS_TOKEN",
+    "cluster_id": "YOUR_CLUSTER_ID",
+    "warehouse_id": "YOUR_WAREHOUSE_ID"
+  },
+  "settings": {
+    "log_level": "INFO",
+    "timeout_seconds": 300,
+    "max_output_size": "5MB"
+  }
+}
