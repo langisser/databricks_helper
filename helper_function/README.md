@@ -83,7 +83,7 @@ notebook_result = executor.execute_notebook(
 logs = executor.get_job_run_logs(run_id=123456)
 
 # Export HTML logs for documentation
-from html_log_export import export_html_log
+from databricks_html_log_export import export_html_log
 html_file = export_html_log("123456")
 print(f"HTML log saved to: {html_file}")
 ```
@@ -99,7 +99,7 @@ python demo/demo_live_execution.py
 python demo/demo_html_export.py
 
 # Command line HTML export
-python html_log_export.py <run_id>
+python databricks_html_log_export.py <run_id>
 ```
 
 ## Why This Approach?
@@ -122,7 +122,7 @@ python html_log_export.py <run_id>
 helper_function/
 ├── config.json              # Configuration file
 ├── databricks_helper.py      # Main helper module
-├── html_log_export.py        # HTML log export functionality
+├── databricks_html_log_export.py # HTML log export functionality
 ├── demo/
 │   ├── demo_live_execution.py  # Live execution demo
 │   └── demo_html_export.py     # HTML export demo
