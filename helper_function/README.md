@@ -8,6 +8,7 @@ This helper provides real-time execution capabilities for Databricks without nee
 - ✅ **Notebook Execution with Output Capture** - Run notebooks and capture outputs
 - ✅ **Real-time stdout/stderr Capture** - Capture all execution output
 - ✅ **Job Run Log Retrieval** - Get logs from specific job runs
+- ✅ **HTML Log Export** - Export job run logs in HTML format for documentation
 - ✅ **No HTML Export Needed** - Direct programmatic access to results
 
 ## Setup
@@ -80,12 +81,25 @@ notebook_result = executor.execute_notebook(
 
 # Get job run logs
 logs = executor.get_job_run_logs(run_id=123456)
+
+# Export HTML logs for documentation
+from html_log_export import export_html_log
+html_file = export_html_log("123456")
+print(f"HTML log saved to: {html_file}")
 ```
 
 ### Run Examples
 ```bash
 cd helper_function
-python example_usage.py
+
+# Run live execution demo
+python demo/demo_live_execution.py
+
+# Run HTML export demo
+python demo/demo_html_export.py
+
+# Command line HTML export
+python html_log_export.py <run_id>
 ```
 
 ## Why This Approach?
@@ -108,7 +122,10 @@ python example_usage.py
 helper_function/
 ├── config.json              # Configuration file
 ├── databricks_helper.py      # Main helper module
-├── example_usage.py          # Usage examples
+├── html_log_export.py        # HTML log export functionality
+├── demo/
+│   ├── demo_live_execution.py  # Live execution demo
+│   └── demo_html_export.py     # HTML export demo
 ├── requirements.txt          # Python dependencies
 └── README.md                # This file
 ```
