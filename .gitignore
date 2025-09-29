@@ -1,0 +1,33 @@
+# Temporary files and outputs
+tmp/
+*.tmp
+*.log
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+.env.local
+.env.production
+
+# Databricks output files
+logs/
+*.html
+*.json
+
+# Claude Code settings (keep local only)
+.claude/settings.local.json
