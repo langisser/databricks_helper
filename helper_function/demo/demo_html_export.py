@@ -6,7 +6,7 @@ This demo shows how to use the simplified HTML log export functionality
 to export Databricks job run logs in HTML format.
 
 Requirements:
-- Valid Databricks credentials in ../config.json
+- Valid Databricks credentials in ../../databricks_config/config.json
 - A valid job run ID from your Databricks workspace
 
 Usage:
@@ -103,11 +103,11 @@ def demo_configuration_info():
         print("Current Configuration:")
         print(f"  Databricks Host: {exporter.host}")
         print(f"  Token (first 10 chars): {exporter.token[:10]}...")
-        print(f"  Config file location: {Path(__file__).parent.parent / 'config.json'}")
+        print(f"  Config file location: {Path(__file__).parent.parent.parent / 'databricks_config' / 'config.json'}")
 
     except Exception as e:
         print(f"❌ Error loading configuration: {e}")
-        print("Make sure config.json exists in the helper_function directory with valid credentials.")
+        print("Make sure config.json exists in the databricks_config directory with valid credentials.")
 
 
 def main():

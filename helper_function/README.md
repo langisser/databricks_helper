@@ -23,7 +23,7 @@ Set up your personal Databricks credentials:
 
 ```bash
 # Run the setup script
-cd helper_function
+cd databricks_config
 python setup_config.py
 
 # This creates config.json from the template
@@ -114,17 +114,20 @@ python databricks_html_log_export.py <run_id>
 ## File Structure
 
 ```
-helper_function/
-├── config.template.json     # Configuration template (tracked)
-├── config.json              # Your personal config (git ignored)
-├── setup_config.py          # Configuration setup helper
-├── databricks_helper.py      # Main helper module
-├── databricks_html_log_export.py # HTML log export functionality
-├── demo/
-│   ├── demo_live_execution.py  # Live execution demo
-│   └── demo_html_export.py     # HTML export demo
-├── requirements.txt          # Python dependencies
-└── README.md                # This file
+databricks_helper/
+├── databricks_config/          # Configuration folder
+│   ├── config.template.json   # Configuration template (tracked)
+│   ├── config.json            # Your personal config (git ignored)
+│   └── setup_config.py        # Configuration setup helper
+├── helper_function/
+│   ├── databricks_helper.py            # Main helper module
+│   ├── databricks_html_log_export.py   # HTML log export functionality
+│   ├── demo/
+│   │   ├── demo_live_execution.py      # Live execution demo
+│   │   └── demo_html_export.py         # HTML export demo
+│   ├── requirements.txt                # Python dependencies
+│   └── README.md                      # This file
+└── tmp/                      # Output folder (git ignored)
 ```
 
 ## Output Format
@@ -171,7 +174,7 @@ To use this helper in another project:
 git submodule add https://github.com/langisser/databricks_helper.git lib/databricks_helper
 
 # Set up configuration in your project
-cd lib/databricks_helper/helper_function
+cd lib/databricks_helper/databricks_config
 python setup_config.py
 # Edit config.json with your credentials
 

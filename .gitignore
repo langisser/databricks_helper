@@ -31,7 +31,7 @@ tmp/*.json
 run_*.json
 
 # Configuration files with credentials (keep local only)
-helper_function/config.json
+databricks_config/config.json
 
 # Claude Code settings (keep local only)
 .claude/settings.local.json
