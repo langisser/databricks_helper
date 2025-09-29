@@ -20,7 +20,7 @@ from pathlib import Path
 # Add parent directory to path so we can import our modules
 sys.path.append(str(Path(__file__).parent.parent))
 
-from html_log_export import export_html_log, HTMLLogExporter
+from databricks_html_log_export import export_html_log, HTMLLogExporter
 
 
 def demo_simple_export():

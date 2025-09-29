@@ -61,13 +61,13 @@ class HTMLLogExporter:
         except (FileNotFoundError, json.JSONDecodeError) as e:
             raise Exception(f"Error loading configuration from {config_path}: {e}")
 
-    def export_run_html(self, run_id, output_dir="logs"):
+    def export_run_html(self, run_id, output_dir="../tmp"):
         """
         Export HTML log for a specific Databricks job run.
 
         Args:
             run_id (str): Databricks job run identifier
-            output_dir (str): Directory to save the HTML file (default: "logs")
+            output_dir (str): Directory to save the HTML file (default: "../tmp")
 
         Returns:
             str: Path to the exported HTML file, or None if export fails
@@ -101,11 +101,11 @@ class HTMLLogExporter:
             with open(html_file_path, 'w', encoding='utf-8') as f:
                 f.write(html_content)
 
-            print(f"✅ HTML log exported successfully: {html_file_path}")
+            print(f"SUCCESS: HTML log exported successfully: {html_file_path}")
             return str(html_file_path)
 
         except requests.RequestException as e:
-            print(f"❌ Error exporting HTML log: {e}")
+            print(f"ERROR: Error exporting HTML log: {e}")
             if hasattr(e, 'response') and e.response is not None:
                 try:
                     error_data = e.response.json()
@@ -114,17 +114,17 @@ class HTMLLogExporter:
                     print(f"   HTTP Status: {e.response.status_code}")
             return None
         except Exception as e:
-            print(f"❌ Unexpected error: {e}")
+            print(f"ERROR: Unexpected error: {e}")
             return None
 
 
-def export_html_log(run_id, output_dir="logs", config_path=None):
+def export_html_log(run_id, output_dir="../tmp", config_path=None):
     """
     Simple function to export HTML log for a Databricks job run.
 
     Args:
         run_id (str): Databricks job run identifier
-        output_dir (str): Directory to save the HTML file (default: "logs")
+        output_dir (str): Directory to save the HTML file (default: "../tmp")
         config_path (str, optional): Path to config.json file
 
     Returns:
