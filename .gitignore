@@ -27,7 +27,8 @@ Thumbs.db
 # Databricks output files
 logs/
 *.html
-*.json
+tmp/*.json
+run_*.json
 
 # Configuration files with credentials (keep local only)
 helper_function/config.json
