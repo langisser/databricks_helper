@@ -1,3 +1,8 @@
-databricks-sdk>=0.29.0
-ipython>=8.0.0
-requests>=2.25.0
+# Core dependencies
+requests>=2.25.0                # Required for HTML log export API calls
+
+# Databricks Connect for live execution
+databricks-connect==14.3.0      # Specific version for runtime compatibility
+
+# Optional dependencies
+ipython>=8.0.0                  # Optional: For enhanced interactive features

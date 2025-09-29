@@ -39,10 +39,10 @@ class HTMLLogExporter:
 
         Args:
             config_path (str, optional): Path to config.json file.
-                                       Defaults to helper_function/config.json
+                                       Defaults to databricks_config/config.json
         """
         if config_path is None:
-            config_path = Path(__file__).parent / "config.json"
+            config_path = Path(__file__).parent.parent / "databricks_config" / "config.json"
 
         self.config = self._load_config(config_path)
         self.host = self.config['databricks']['host'].rstrip('/')
