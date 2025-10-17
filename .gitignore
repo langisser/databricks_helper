@@ -36,10 +36,6 @@ databricks_config/config.json
 # Claude Code settings (keep local only)
 .claude/settings.local.json
 
-# Databricks CLI documentation (external, not needed for analysis)
-databricks_cli/README.md
-databricks_cli/CHANGELOG.md
-
 # Unit test results (test code is tracked, but results are temporary)
 helper_function/unittest/test_results_*.json
 helper_function/unittest/*.log
