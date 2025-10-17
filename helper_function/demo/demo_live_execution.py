@@ -6,6 +6,7 @@ Shows real-time Spark execution with immediate results
 
 import sys
 import time
+from pathlib import Path
 sys.path.append('../')
 
 import json
@@ -17,22 +18,22 @@ def demo_live_spark_execution():
     print("LIVE DATABRICKS CONNECT EXECUTION DEMO")
     print("=" * 50)
 
-    # Load config
-    with open('../config.json', 'r') as f:
+    # Load config from centralized location
+    config_path = Path(__file__).parent.parent.parent / "databricks_config" / "config.json"
+    with open(config_path, 'r') as f:
         config = json.load(f)
 
     try:
-        # Create session - this connects directly to cluster
-        print("1. Creating Databricks Connect session...")
+        # Create session - this connects directly to cluster using Azure CLI auth
+        print("1. Creating Databricks Connect session (Azure CLI auth)...")
         spark = DatabricksSession.builder \
             .remote(
                 host=config['databricks']['host'],
-                token=config['databricks']['token'],
                 cluster_id=config['databricks']['cluster_id']
             ) \
             .getOrCreate()
 
-        print("   SUCCESS: Connected to cluster!")
+        print("   SUCCESS: Connected to cluster using Azure CLI authentication!")
 
         # Demo 1: Immediate DataFrame operations
         print("\n2. Live DataFrame execution...")
