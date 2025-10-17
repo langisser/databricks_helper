@@ -10,6 +10,9 @@ This is a Databricks Connect helper system that enables real-time Spark executio
 
 ### Setup and Installation
 ```bash
+# Authenticate with Azure CLI (required for Databricks connection)
+az login
+
 # Install Python dependencies (requires databricks-connect==14.3.0)
 cd helper_function
 pip install -r requirements.txt
@@ -27,9 +30,11 @@ python demo_live_execution.py
 
 ### Cluster Discovery (using Databricks CLI)
 ```bash
+# Ensure you're logged in with Azure CLI
+az login
+
 # Find cluster ID from cluster name
 export DATABRICKS_HOST=https://your-workspace.databricks.net/
-export DATABRICKS_TOKEN=your-token
 databricks clusters list --output json
 ```
 
@@ -37,10 +42,12 @@ databricks clusters list --output json
 
 ### Core Components
 
-**Configuration System (`helper_function/config.json`)**
-- Contains Databricks workspace credentials and cluster identifiers
-- Requires: host, token, cluster_id (warehouse_id optional)
+**Configuration System (`databricks_config/config.json`)**
+- Contains Databricks workspace host and cluster identifiers
+- Requires: host, cluster_id (warehouse_id optional)
+- Uses Azure CLI for authentication (no token needed in config)
 - Used by all execution components for cluster connection
+- Single centralized config file for all functionality
 
 **Live Execution Engine (`helper_function/demo/demo_live_execution.py`)**
 - Primary interface for real-time Databricks Spark execution
@@ -69,6 +76,12 @@ databricks clusters list --output json
 
 ## Important Implementation Details
 
+### Authentication
+- Uses Azure CLI for authentication (token-based auth has been replaced)
+- Must run `az login` before executing any Databricks operations
+- Databricks Connect automatically uses Azure CLI credentials when no token is provided
+- Ensures better security by leveraging Azure's authentication system
+
 ### Databricks Connect Version Compatibility
 - Must use `databricks-connect==14.3.0` to match Databricks Runtime 14.3 LTS
 - Version mismatch will cause connection failures with explicit error messages
@@ -79,9 +92,11 @@ databricks clusters list --output json
 - Session creation will wait for cluster startup if needed
 
 ### Configuration Management
-- Configuration loaded from `../config.json` relative to demo script
-- Contains actual working credentials (not placeholder values)
+- Configuration loaded from `databricks_config/config.json` (centralized location)
+- Contains workspace host and cluster identifiers (no sensitive tokens)
+- Authentication handled automatically via Azure CLI
 - Cluster ID must match exact cluster identifier, not cluster name
+- Single config file used by all components (live execution and HTML export)
 
 ### Output Format
 All execution functions return structured dictionaries with:
@@ -94,10 +109,12 @@ All execution functions return structured dictionaries with:
 ## File Organization
 
 ```
-databrick_helper/
+databricks_helper/
+├── databricks_config/       # Configuration files
+│   ├── config.json         # Databricks credentials (centralized)
+│   └── config.template.json # Template for new setups
 ├── databricks_cli/          # CLI tools (isolated)
 ├── helper_function/         # Main functionality
-│   ├── config.json         # Databricks credentials
 │   └── demo/
 │       └── demo_live_execution.py  # Primary execution interface
 └── tmp/                    # Archived files (ignore for analysis)
@@ -115,3 +132,4 @@ The `tmp/` folder contains previous iterations and test files that should not be
   - Use Read tool first to verify current file state
   - Wait a moment and retry if necessary
   - Consider using Edit tool instead of Write for existing files
+- Just use normal status instead of emoji

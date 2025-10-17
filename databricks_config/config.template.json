@@ -1,9 +1,9 @@
 {
   "databricks": {
     "host": "https://your-workspace.databricks.net",
-    "token": "YOUR_DATABRICKS_ACCESS_TOKEN",
     "cluster_id": "YOUR_CLUSTER_ID",
-    "warehouse_id": "YOUR_WAREHOUSE_ID"
+    "warehouse_id": "YOUR_WAREHOUSE_ID",
+    "auth_type": "azure-cli"
   },
   "settings": {
     "log_level": "INFO",
